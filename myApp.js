@@ -85,7 +85,9 @@ app.route("/name").get(function(req,res) {
   // res.json({"name": firstName + " " + lastName});
   res.json({"name": `${firstName} ${lastName}`});
   // res.json({"name":req.query.first + " " + req.query.last});
-})
+}).post(function(req,res) {
+  res.json({"name": req.body.first + " " + req.body.last}) } );
+
   
 /** 11) Get ready for POST Requests - the `body-parser` */
 // place it before all the routes !
