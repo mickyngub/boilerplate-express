@@ -65,10 +65,17 @@ app.get("/json", function(req, res) {
 
 
 /** 8) Chaining middleware. A Time server */
-
+app.get("/now", function(req,res,next) {
+  req.time = new Date().toString();
+  next();
+}, function(req,res) {
+  res.json({"time":req.time});
+})
 
 /** 9)  Get input from client - Route parameters */
-
+app.get("/:word/echo", function(req,res) {
+  res.json({"echo":req.params.word});
+});
 
 /** 10) Get input from client - Query parameters */
 // /name?first=<firstname>&last=<lastname>
