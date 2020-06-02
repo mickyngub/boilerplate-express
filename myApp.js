@@ -2,6 +2,8 @@
 var express = require('express');
 var app = express();
 
+
+
 // --> 7)  Mount the Logger middleware here
 
 
@@ -33,18 +35,27 @@ app.get("/", function(req,res) {
 // })
 
 /** 6) Use the .env file to configure the app */
-process.env.MESSAGE_STYLE="uppercase";
-if(process.env.MESSAGE_STYLE === "uppercase") {
-  app.get("/json", function(req,res) {
-    res.json({"message": "HELLO JSON"});
-  });
-} else {
-  app.get("/json", function(req,res) {
-    res.json({"message": "Hello json"});
-  });
-}
 
- 
+process.env.MESSAGE_STYLE="uppercase";
+
+//This does not work!!!
+// if(process.env.MESSAGE_STYLE === "uppercase") {
+//   app.get("/json", function(req,res) {
+//     res.json({message: "HELLO JSON"});
+//   });
+// } else {
+//   app.get("/json", function(req,res) {
+//     res.json({message: "Hello json"});
+//   });
+// }
+
+app.get("/json", function(req, res) {
+  if (process.env.MESSAGE_STYLE === "uppercase") {
+    res.json({ message: "HELLO JSON" });
+  } else {
+    res.json({ message: "Hello json" });
+  }
+});
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
 
