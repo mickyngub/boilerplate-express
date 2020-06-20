@@ -6,7 +6,7 @@ var bodyParser = require("body-parser");
 
 
 // --> 7)  Mount the Logger middleware here
-app.use("", function(req,res,next) {
+app.use("", (req,res,next) => {
   console.log(req.method + " " + req.path
   + " - " + req.ip);
   next();
@@ -66,26 +66,26 @@ app.get("/json", function(req, res) {
 
 
 /** 8) Chaining middleware. A Time server */
-app.get("/now", function(req,res,next) {
+app.get("/now", (req,res,next) => {
   req.time = new Date().toString();
   next();
-}, function(req,res) {
+}, (req,res) => {
   res.json({"time":req.time});
 })
 
 /** 9)  Get input from client - Route parameters */
-app.get("/:word/echo", function(req,res) {
+app.get("/:word/echo", (req,res) => {
   res.json({"echo":req.params.word});
 });
 
 /** 10) Get input from client - Query parameters */
 // /name?first=<firstname>&last=<lastname>
-app.route("/name").get(function(req,res) {
+app.route("/name").get((req,res) => {
   let { first : firstName, last : lastName } = req.query;
   // res.json({"name": firstName + " " + lastName});
   res.json({"name": `${firstName} ${lastName}`});
   // res.json({"name":req.query.first + " " + req.query.last});
-}).post(function(req,res) {
+}).post((req,res) => {
   res.json({"name": req.body.first + " " + req.body.last}) } );
 
   
